@@ -41,7 +41,6 @@ export function BrowseContainer({ slides }) {
       setSlideRows(slides[category]);
     }
   }, [searchTerm]);
- 
 
   return (
     <>
