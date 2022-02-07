@@ -4,7 +4,7 @@ import { Card, Header, Loading, Player } from '../components';
 import * as ROUTES from '../constants/routes';
 import logo from '../logo.svg';
 import { FirebaseContext } from '../context/firebase';
-import { SelectProfileContainer } from './profiles';
+// import { SelectProfileContainer } from './profiles';
 import { FooterContainer } from './footer';
 
 export function BrowseContainer({ slides }) {
@@ -19,7 +19,7 @@ export function BrowseContainer({ slides }) {
 
   useEffect(() => {
     setProfile({ displayName: user.displayName, photoURL: user.photoURL });
-  });
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
