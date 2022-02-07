@@ -6,7 +6,8 @@ import { selectionFilter } from '../utils';
 export default function Browse() {
   const { series } = useContent('series');
   const { films } = useContent('films');
-  const slides = selectionFilter({ series, films });
+  const { theatre } = useContent('theatre');
+  const slides = selectionFilter({ series, films, theatre });
 
   return <BrowseContainer slides={slides} />;
 }

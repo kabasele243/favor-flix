@@ -18,10 +18,14 @@ export function BrowseContainer({ slides }) {
   const user = firebase.auth().currentUser || {};
 
   useEffect(() => {
+    setProfile({ displayName: user.displayName, photoURL: user.photoURL });
+  });
+
+  useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
-  }, [profile.displayName]);
+    }, 4000);
+  }, []);
 
   useEffect(() => {
     setSlideRows(slides[category]);
@@ -37,8 +41,9 @@ export function BrowseContainer({ slides }) {
       setSlideRows(slides[category]);
     }
   }, [searchTerm]);
+ 
 
-  return profile.displayName ? (
+  return (
     <>
       {loading ? <Loading src={user.photoURL} /> : <Loading.ReleaseBody />}
 
@@ -52,11 +57,8 @@ export function BrowseContainer({ slides }) {
             <Header.TextLink active={category === 'films' ? 'true' : 'false'} onClick={() => setCategory('films')}>
               Films
             </Header.TextLink>
-            <Header.TextLink active={category === 'series' ? 'true' : 'false'} onClick={() => setCategory('series')}>
-              Series
-            </Header.TextLink>
-            <Header.TextLink active={category === 'films' ? 'true' : 'false'} onClick={() => setCategory('films')}>
-              Films
+            <Header.TextLink active={category === 'theatre' ? 'true' : 'false'} onClick={() => setCategory('theatres')}>
+              Theatre
             </Header.TextLink>
           </Header.Group>
           <Header.Group>
@@ -77,7 +79,7 @@ export function BrowseContainer({ slides }) {
         </Header.Frame>
 
         <Header.Feature>
-          <Header.FeatureCallOut>Watch Joker Now</Header.FeatureCallOut>
+          <Header.FeatureCallOut>Watch Movie Title</Header.FeatureCallOut>
           <Header.Text>
             Forever alone in a crowd, failed comedian Arthur Fleck seeks connection as he walks the streets of Gotham
             City. Arthur wears two masks -- the one he paints for his day job as a clown, and the guise he projects in a
@@ -113,7 +115,8 @@ export function BrowseContainer({ slides }) {
       </Card.Group>
       <FooterContainer />
     </>
-  ) : (
-    <SelectProfileContainer user={user} setProfile={setProfile} />
   );
+  // : (
+  //   <SelectProfileContainer user={user} setProfile={setProfile} />
+  // );
 }

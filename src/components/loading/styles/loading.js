@@ -75,8 +75,8 @@ export const Spinner = styled.div`
 `;
 
 export const Picture = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 150px;
+  height: 150px;
   position: absolute;
   top: 50%;
   left: 50%;

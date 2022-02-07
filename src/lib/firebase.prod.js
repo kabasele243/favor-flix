@@ -20,4 +20,3 @@ const firebase = Firebase.initializeApp(config);
 // 3) once you have populated the database (only run once!), re-comment this so you don't get duplicate data
 
 export { firebase };
-

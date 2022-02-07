@@ -22,6 +22,5 @@ export default function useContent(target) {
         console.log(error.message);
       });
   }, []);
-
   return { [target]: content };
 }

@@ -10,6 +10,50 @@ export function seedDatabase(firebase) {
     /* eslint-enable */
   }
 
+  firebase.firestore().collection('theatre').add({
+    id: getUUID(),
+    title: 'Tiger King',
+    description: 'An exploration of big cat breeding and its bizarre underworld, populated by eccentric characters.',
+    genre: 'documentaries',
+    maturity: '18',
+    slug: 'tiger-king',
+  });
+  firebase.firestore().collection('theatre').add({
+    id: getUUID(),
+    title: 'Cinarc',
+    description: 'Amanda Marie Knox is an American woman who spent almost four years in an Italian prison.',
+    genre: 'theatres',
+    maturity: '12',
+    slug: 'cinarc',
+  });
+  firebase.firestore().collection('theatre').add({
+    id: getUUID(),
+    title: 'Vision243',
+    description:
+      'Citizenfour is a 2014 documentary film directed by Laura Poitras, concerning Edward Snowden and the NSA spying scandal.',
+    genre: 'theatres',
+    maturity: '12',
+    slug: 'vision243',
+  });
+  firebase.firestore().collection('theatre').add({
+    id: getUUID(),
+    title: 'Mangobo',
+    description:
+      "Director Morgan Spurlock's social experiment in fast-food gastronomy sees him attempting to subsist uniquely on food from the McDonalds",
+    genre: 'theatres',
+    maturity: '12',
+    slug: 'mangobo',
+  });
+  firebase.firestore().collection('theatre').add({
+    id: getUUID(),
+    title: 'Zone',
+    description:
+      "Filmmaker James Marsh masterfully recreates high-wire daredevil Philippe Petit's 1974 stunt walking on a wire across the Twin Towers.",
+    genre: 'theatres',
+    maturity: '12',
+    slug: 'zone',
+  });
+
   /* Series
     ============================================ */
   // Documentaries
