@@ -18,30 +18,6 @@ export default function SignUp() {
 
   const isInvalid = firstName === '' || password === '' || emailAddress === '';
 
-  // const handleSignup = (event) => {
-  //   event.preventDefault();
-
-  //   return firebase
-  //     .auth()
-  //     .createUserWithEmailAndPassword(emailAddress, password)
-  //     .then((result) =>
-  //       result.user
-  //         .updateProfile({
-  //           displayName: firstName,
-  //           photoURL: Math.floor(Math.random() * 5) + 1,
-  //         })
-  //         .then(() => {
-  //           history.push(ROUTES.BROWSE);
-  //         })
-  //     )
-  //     .catch((error) => {
-  //       setFirstName('');
-  //       setEmailAddress('');
-  //       setPassword('');
-  //       setError(error.message);
-  //     });
-  // };
-
   const handleSignup = async (event) => {
     event.preventDefault();
 

@@ -2,11 +2,6 @@ import { useState, useEffect, useContext } from 'react';
 import { FirebaseContext } from '../context/firebase';
 import 'firebase/firestore';
 
-// const { firebase } = useContext(FirebaseContext);
-// const firestore = firebase.firestore();
-// import 'firebase/compat/firestore';
-// import 'firebase/compat/auth';
-
 export default function useAuthListener() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')));
   const { firebase } = useContext(FirebaseContext);
@@ -30,7 +25,6 @@ export default function useAuthListener() {
 
 export async function createUserProfileDocument(userAuth, additionalData, firebase) {
   if (!userAuth) return;
-  // const { firebase } = useContext(FirebaseContext);
   const firestore = firebase.firestore();
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
@@ -47,7 +41,7 @@ export async function createUserProfileDocument(userAuth, additionalData, fireba
         photoURL,
         emailVerified,
         createdAt,
-        ...additionalData
+        ...additionalData,
       });
     } catch (error) {
       console.log('error creating user', error.message);
@@ -55,4 +49,4 @@ export async function createUserProfileDocument(userAuth, additionalData, fireba
   }
 
   return userRef;
-};
+}
