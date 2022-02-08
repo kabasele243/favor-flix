@@ -6,6 +6,7 @@ export function IsUserRedirect({ user, loggedInPath, children, ...rest }) {
     <Route
       {...rest}
       render={() => {
+        console.log({user})
         if (!user) {
           return children;
         }

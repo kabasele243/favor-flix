@@ -4,6 +4,7 @@ import { FirebaseContext } from '../context/firebase';
 import { Form } from '../components';
 import { HeaderContainer } from '../containers/header';
 import { FooterContainer } from '../containers/footer';
+import { createUserProfileDocument } from '../hooks/index';
 import * as ROUTES from '../constants/routes';
 
 export default function SignUp() {
@@ -17,28 +18,52 @@ export default function SignUp() {
 
   const isInvalid = firstName === '' || password === '' || emailAddress === '';
 
-  const handleSignup = (event) => {
+  // const handleSignup = (event) => {
+  //   event.preventDefault();
+
+  //   return firebase
+  //     .auth()
+  //     .createUserWithEmailAndPassword(emailAddress, password)
+  //     .then((result) =>
+  //       result.user
+  //         .updateProfile({
+  //           displayName: firstName,
+  //           photoURL: Math.floor(Math.random() * 5) + 1,
+  //         })
+  //         .then(() => {
+  //           history.push(ROUTES.BROWSE);
+  //         })
+  //     )
+  //     .catch((error) => {
+  //       setFirstName('');
+  //       setEmailAddress('');
+  //       setPassword('');
+  //       setError(error.message);
+  //     });
+  // };
+
+  const handleSignup = async (event) => {
     event.preventDefault();
 
-    return firebase
-      .auth()
-      .createUserWithEmailAndPassword(emailAddress, password)
-      .then((result) =>
-        result.user
-          .updateProfile({
-            displayName: firstName,
-            photoURL: Math.floor(Math.random() * 5) + 1,
-          })
-          .then(() => {
-            history.push(ROUTES.BROWSE);
-          })
-      )
-      .catch((error) => {
-        setFirstName('');
-        setEmailAddress('');
-        setPassword('');
-        setError(error.message);
+    try {
+      const { user } = await firebase.auth().createUserWithEmailAndPassword(emailAddress, password);
+
+      user.updateProfile({
+        displayName: firstName,
+        photoURL: Math.floor(Math.random() * 5) + 1,
       });
+
+      setFirstName('');
+      setEmailAddress('');
+      setPassword('');
+      await createUserProfileDocument(user, { firstName }, firebase);
+      history.push(ROUTES.BROWSE);
+    } catch (error) {
+      setFirstName('');
+      setEmailAddress('');
+      setPassword('');
+      setError(error.message);
+    }
   };
 
   return (
@@ -74,9 +99,9 @@ export default function SignUp() {
           <Form.Text>
             Already a user? <Form.Link to="/signin">Sign in now.</Form.Link>
           </Form.Text>
-          <Form.TextSmall>
+          {/* <Form.TextSmall>
             This page is protected by Google reCAPTCHA to ensure you're not a bot. Learn more.
-          </Form.TextSmall>
+          </Form.TextSmall> */}
         </Form>
       </HeaderContainer>
       <FooterContainer />

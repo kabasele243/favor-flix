@@ -1,5 +1,11 @@
 import { useState, useEffect, useContext } from 'react';
 import { FirebaseContext } from '../context/firebase';
+import 'firebase/firestore';
+
+// const { firebase } = useContext(FirebaseContext);
+// const firestore = firebase.firestore();
+// import 'firebase/compat/firestore';
+// import 'firebase/compat/auth';
 
 export default function useAuthListener() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')));
@@ -21,3 +27,32 @@ export default function useAuthListener() {
 
   return { user };
 }
+
+export async function createUserProfileDocument(userAuth, additionalData, firebase) {
+  if (!userAuth) return;
+  // const { firebase } = useContext(FirebaseContext);
+  const firestore = firebase.firestore();
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+  const snapShot = await userRef.get();
+
+  if (!snapShot.exists) {
+    const { displayName, email, photoURL, emailVerified } = userAuth;
+    const createdAt = new Date();
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        photoURL,
+        emailVerified,
+        createdAt,
+        ...additionalData
+      });
+    } catch (error) {
+      console.log('error creating user', error.message);
+    }
+  }
+
+  return userRef;
+};
